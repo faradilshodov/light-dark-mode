@@ -5,6 +5,8 @@ const image1 = document.getElementById('image1');
 const image2 = document.getElementById('image2');
 const image3 = document.getElementById('image3');
 const textBox = document.getElementById('text-box');
+const DARK_THEME = 'dark';
+const LIGHT_THEME = 'light';
 
 // Dark or Light Mode Images
 function imageMode(color) {
@@ -13,12 +15,12 @@ function imageMode(color) {
     image3.src = `img/undraw_conceptual_idea_${color}.svg`;
 }
 
-function toggleDarkLightMode(isDark) {
-    nav.style.backgroundColor = isDark ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
-    textBox.style.backgroundColor = isDark ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
-    toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode';
-    isDark ? toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon') :  toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
-    isDark ? imageMode('dark') : imageMode('light');
+function toggleDarkLightMode(theme) {
+    nav.style.backgroundColor = theme === 'dark' ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
+    textBox.style.backgroundColor = theme === 'dark' ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
+    toggleIcon.children[0].textContent = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
+    theme === 'dark' ? toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon') :  toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
+    theme === 'dark' ? imageMode('dark') : imageMode('light');
 }
 
 // Switch Theme Dynamically
@@ -26,11 +28,11 @@ function switchTheme(event) {
     if (event.target.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark');
-        toggleDarkLightMode(true);
+        toggleDarkLightMode(DARK_THEME);
     } else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light');
-        toggleDarkLightMode(false);
+        toggleDarkLightMode(LIGHT_THEME);
     }
 }
 
@@ -44,6 +46,6 @@ if (currentTheme) {
 
     if (currentTheme === 'dark'){
         toggleSwitch.checked = true;
-        toggleDarkLightMode(true);
+        toggleDarkLightMode(DARK_THEME);
     }
 }
